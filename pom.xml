@@ -2,8 +2,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
-  
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.homelinux.md401</groupId>
   <artifactId>zombienascar</artifactId>
@@ -21,7 +19,6 @@
     <vscaladoc.links.liftweb.pathsufix>scaladocs/</vscaladoc.links.liftweb.pathsufix>
     <vscaladoc.links.liftweb.baseurl>http://scala-tools.org/mvnsites/liftweb</vscaladoc.links.liftweb.baseurl>
   </properties>
-
   <repositories>
     <repository>
       <id>scala-tools.releases</id>
@@ -29,7 +26,6 @@
       <url>http://scala-tools.org/repo-releases</url>
     </repository>
   </repositories>
-
   <pluginRepositories>
     <pluginRepository>
       <id>scala-tools.releases</id>
@@ -68,22 +64,15 @@
       <version>[6.1.6,7.0)</version>
       <scope>test</scope>
     </dependency>
-<!--     for LiftConsole -->
     <dependency>
-      <groupId>org.scala-lang</groupId>
-      <artifactId>scala-compiler</artifactId>
-      <version>${scala.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-    <groupId>org.slf4j</groupId>
+<groupId>org.slf4j</groupId>
     <artifactId>slf4j-log4j12</artifactId>
     <version>1.6.4</version>
     </dependency>
     <dependency>
-    <groupId>postgresql</groupId>
-    <artifactId>postgresql</artifactId>
-    <version>8.4-702.jdbc4</version>
+<groupId>postgresql</groupId>
+<artifactId>postgresql</artifactId>
+<version>8.4-702.jdbc4</version>
 </dependency></dependencies>
 
   <build>
