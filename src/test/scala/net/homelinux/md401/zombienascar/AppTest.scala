@@ -18,23 +18,8 @@ object AppTest {
   }
 }
 
-/**
- * Unit test for simple App.
- */
 class AppTest extends TestCase("app") {
 
-  /**
-   * Rigourous Tests :-)
-   */
-  def testOK() = assertTrue(true)
-  // def testKO() = assertTrue(false);
-
-  /**
-   * Tests to make sure the project's XML files are well-formed.
-   *
-   * Finds every *.html and *.xml file in src/main/webapp (and its
-   * subdirectories) and tests to make sure they are well-formed.
-   */
   def testXml() = {
     var failed: List[File] = Nil
 
