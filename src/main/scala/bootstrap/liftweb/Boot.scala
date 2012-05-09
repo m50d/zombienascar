@@ -13,7 +13,6 @@ import _root_.java.sql.{ Connection, DriverManager }
 class Boot {
   def boot {
     LiftRules.addToPackages("net.homelinux.md401.zombienascar")
-//    Schemifier.schemify(true, Schemifier.infoF _, User)
     // Build SiteMap
     LiftRules.setSiteMap(SiteMap(Menu("Home") / "index"))
     LiftRules.ajaxStart =
@@ -32,6 +31,7 @@ class Boot {
     	LiftRules.unloadHooks.append(vendor.closeAllConnections_! _)
     	DB.defineConnectionManager(DefaultConnectionIdentifier, vendor)
     }
+    Schemifier.schemify(true, Schemifier.infoF _)
   }
 
 }
