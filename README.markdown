@@ -1,0 +1,1 @@
+Currently this is more a playground for learning Lift than a working application.
