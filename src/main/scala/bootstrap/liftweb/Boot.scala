@@ -20,18 +20,7 @@ class Boot {
     LiftRules.ajaxEnd =
       Full(() => LiftRules.jsArtifacts.hide("ajax-loader").cmd)
     LiftRules.early.append(_.setCharacterEncoding("UTF-8"));
-    S.addAround(DB.buildLoanWrapper)
     LiftRules.htmlProperties.default.set((r: Req) => new Html5Properties(r.userAgent))
-
-    if (!DB.jndiJdbcConnAvailable_?) {
-    	val vendor =
-    			new StandardDBVendor(classOf[org.postgresql.Driver] getName,
-    					sys.env("DATABASE_URL"),
-    					Empty, Empty)
-    	LiftRules.unloadHooks.append(vendor.closeAllConnections_! _)
-    	DB.defineConnectionManager(DefaultConnectionIdentifier, vendor)
-    }
-    Schemifier.schemify(true, Schemifier.infoF _)
   }
 
 }
