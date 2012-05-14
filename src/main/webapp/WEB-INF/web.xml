@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-
 <web-app>
 <filter>
   <filter-name>LiftFilter</filter-name>
@@ -7,11 +6,8 @@
   <description>The Filter that intercepts lift calls</description>
   <filter-class>net.liftweb.http.LiftFilter</filter-class>
 </filter>
-  	
-
 <filter-mapping>
   <filter-name>LiftFilter</filter-name>
   <url-pattern>/*</url-pattern>
 </filter-mapping>
-
 </web-app>

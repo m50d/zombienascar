@@ -2,6 +2,7 @@ package net.homelinux.md401.zombienascar.snippet
 import net.liftweb.http.SHtml
 import net.homelinux.md401.zombienascar.comet.ChatServer
 import net.liftweb.http.js.JsCmds.SetValById
+import scala.xml.NodeSeq
 object ChatIn {
   /**
    * The render method in this case returns a function
@@ -11,8 +12,16 @@ object ChatIn {
    * to the ChatServer and then returns JavaScript which
    * clears the input.
    */
-  def render = SHtml.onSubmit(s => {
+  def render = {
+    System.out.println("In render")
+    val tf = SHtml.onSubmit(s => {
+      System.out.println("In onsubmit")
     ChatServer ! s
     SetValById("chat_in", "")
   })
+  x : NodeSeq => {
+    System.out.println("In thing")
+    tf(x)
+  }
+  }
 }
