@@ -4,6 +4,8 @@ import net.liftweb.http.ListenerManager
 import net.liftweb.http.CometActor
 import net.liftweb.http.CometListener
 import net.liftweb.util.ClearClearable
+import net.liftweb.http.SHtml
+import net.liftweb.http.js.JsCmds.SetValById
 
 /**
  * A singleton that provides chat features to all clients.
