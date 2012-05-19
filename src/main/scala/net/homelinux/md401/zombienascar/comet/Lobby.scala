@@ -57,7 +57,11 @@ class Lobby  extends CometActor with CometListener {
    * cause changes to be sent to the browser.
    */
   override def lowPriority = {
-    case v: Vector[String] => msgs = v; reRender()
+    case v: Vector[String] => {
+      msgs = v;
+      System.out.println(msgs)
+      reRender();
+    }
   }
 
   /**

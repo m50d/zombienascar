@@ -17,10 +17,10 @@ object chatin {
    */
   def render = {
     var msg : String = ""
-    def update(): JsCmd = {
+    "id=chat_in" #> SHtml.ajaxText(msg, msg = _) & 
+    "id=chat_submit" #> SHtml.ajaxButton("Say", () => {
+      System.out.println("Updating with message: " + msg)
     		ChatServer ! msg
     SetValById("chat_in", "")
-      }
-    "id=chat_in" #> SHtml.ajaxText(msg, msg = _) & 
-    "id=chat_submit" #> SHtml.ajaxButton("Say", update: () => JsCmd)
+      })
 }}
