@@ -6,7 +6,7 @@ import scala.xml.NodeSeq
 import net.liftweb.http.js.JsCmd
 import net.homelinux.md401.zombienascar.comet.ChatServer
 
-object ChatIn {
+object chatin {
   /**
    * The render method in this case returns a function
    * that transforms NodeSeq => NodeSeq.  In this case,

@@ -1,24 +1,24 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
           "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:lift="http://liftweb.net/">
     <head>
         <title>Home</title>
     </head>
-    <body class="lift:content_id=main">
+    <body>
         <div id="main">
-            <div class="lift:comet?type=Lobby">
+            <lift:comet type="Lobby">
                 <ul>
                     <li>A message</li>
                     <li class="clearable">Another message</li>
                     <li class="clearable">A third message</li>
                 </ul>
-            </div>
+            </lift:comet>
             <div>
                 <form>
-                    <div class="lift:ChatIn">
+                    <lift:chatin>
                         <input id="chat_in" />
                         <input id="chat_submit" type="submit" value="Say Something" />
-                    </div>
+                    </lift:chatin>
                 </form>
             </div>
         </div>
