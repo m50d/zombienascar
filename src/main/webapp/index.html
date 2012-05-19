@@ -3,6 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:lift="http://liftweb.net/">
     <head>
         <title>Home</title>
+        <script id="jquery" src="/classpath/jquery.js" type="text/javascript"></script>
+        <script id="json" src="/classpath/json.js" type="text/javascript"></script>
     </head>
     <body>
         <div id="main">
@@ -14,10 +16,10 @@
                 </ul>
             </lift:comet>
             <div>
-                    <lift:chatin>
-                        <input id="chat_in" />
-                        <input id="chat_submit" type="submit" value="Say Something" />
-                    </lift:chatin>
+                <lift:chatin>
+                    <input id="chat_in" />
+                    <input id="chat_submit" type="submit" value="Say Something" />
+                </lift:chatin>
             </div>
         </div>
     </body>
