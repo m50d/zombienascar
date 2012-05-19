@@ -2,7 +2,10 @@ package net.homelinux.md401.zombienascar.snippet
 import net.liftweb.http.SHtml
 import net.homelinux.md401.zombienascar.comet.ChatServer
 import net.liftweb.http.js.JsCmds.SetValById
+import net.liftweb.util.Helpers._
 import scala.xml.NodeSeq
+import net.liftweb.http.js.JsCmd
+
 object ChatIn {
   /**
    * The render method in this case returns a function
@@ -13,15 +16,10 @@ object ChatIn {
    * clears the input.
    */
   def render = {
-    System.out.println("In render")
-    val tf = SHtml.onSubmit(s => {
-      System.out.println("In onsubmit")
-    ChatServer ! s
+    var msg : String = ""
+    def update(): JsCmd = {
+    		ChatServer ! msg
     SetValById("chat_in", "")
-  })
-  x : NodeSeq => {
-    System.out.println("In thing")
-    tf(x)
-  }
-  }
-}
+      }
+    "id=chat_in" #> (SHtml.text(msg, msg = _) ++ SHtml.hidden(update))
+}}
