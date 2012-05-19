@@ -21,5 +21,6 @@ object ChatIn {
     		ChatServer ! msg
     SetValById("chat_in", "")
       }
-    "id=chat_in" #> (SHtml.text(msg, msg = _) ++ SHtml.hidden(update))
+    "id=chat_in" #> SHtml.ajaxText(msg, msg = _) & 
+    "id=chat_submit" #> SHtml.ajaxButton("Say", update: () => JsCmd)
 }}
