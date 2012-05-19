@@ -5,6 +5,7 @@ import net.liftweb.http.CometActor
 import net.liftweb.http.CometListener
 import net.liftweb.util.ClearClearable
 import net.liftweb.http.SHtml
+import net.liftweb.util.Helpers._
 import net.liftweb.http.js.JsCmds.SetValById
 
 /**
@@ -39,7 +40,7 @@ object ChatServer extends LiftActor with ListenerManager {
  * by this component.  When the component changes on the server
  * the changes are automatically reflected in the browser.
  */
-class Lobby extends CometActor with CometListener {
+class Lobby  extends CometActor with CometListener {
   private var msgs: Vector[String] = Vector() // private state
 
   /**
@@ -63,5 +64,5 @@ class Lobby extends CometActor with CometListener {
    * Put the messages in the li elements and clear
    * any elements that have the clearable class.
    */
-  def render = "li *" #> msgs & ClearClearable
+  override def render = "li *" #> msgs & ClearClearable
 }

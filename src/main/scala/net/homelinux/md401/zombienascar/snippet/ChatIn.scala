@@ -1,10 +1,10 @@
 package net.homelinux.md401.zombienascar.snippet
 import net.liftweb.http.SHtml
-import net.homelinux.md401.zombienascar.comet.ChatServer
 import net.liftweb.http.js.JsCmds.SetValById
 import net.liftweb.util.Helpers._
 import scala.xml.NodeSeq
 import net.liftweb.http.js.JsCmd
+import net.homelinux.md401.zombienascar.comet.ChatServer
 
 object ChatIn {
   /**
