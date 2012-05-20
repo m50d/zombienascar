@@ -1,6 +1,6 @@
 package net.homelinux.md401.zombienascar.snippet
 import net.liftweb.http.SHtml
-import net.liftweb.http.js.JsCmds.{SetValById, Noop}
+import net.liftweb.http.js.JsCmds.{ SetValById, Noop }
 import net.liftweb.util.Helpers._
 import scala.xml.NodeSeq
 import net.liftweb.http.js.JsCmd
@@ -17,10 +17,11 @@ object chatin {
    */
   def render = {
     System.out.println("In render")
-    "id=chat_in" #> SHtml.ajaxText("", msg => {
-       System.out.println("Updating with message: " + msg)
-    		ChatServer ! msg
-    SetValById("chat_in", "")
-    }) & 
-    "id=chat_submit" #> SHtml.ajaxButton("Say", () => Noop)
-}}
+    var msg = ""
+    "id=chat_in" #> SHtml.ajaxText(msg, msg = _) &
+      "id=chat_submit" #> SHtml.ajaxButton("Say", () => {
+        ChatServer ! msg
+        SetValById("chat_in", "")
+      })
+  }
+}
