@@ -68,5 +68,5 @@ class Lobby  extends CometActor with CometListener {
    * Put the messages in the li elements and clear
    * any elements that have the clearable class.
    */
-  override def render = "li *" #> msgs & ClearClearable
+  override def render = "li *" #> msgs
 }
