@@ -1,35 +1,29 @@
 package net.homelinux.md401.zombienascar.comet
+import scala.annotation.serializable
+
+import org.openid4java.discovery.Identifier
+
 import net.liftweb.actor.LiftActor
-import net.liftweb.http.ListenerManager
 import net.liftweb.http.CometActor
 import net.liftweb.http.CometListener
-import net.liftweb.util.ClearClearable
-import net.liftweb.http.SHtml
-import net.liftweb.util.Helpers._
-import net.liftweb.http.js.JsCmds.SetValById
+import net.liftweb.http.ListenerManager
+import net.liftweb.util.IterableConst.itStringPromotable
 
-/**
- * A singleton that provides chat features to all clients.
- * It's an Actor so it's thread-safe because only one
- * message will be processed at once.
- */
+object UserList extends LiftActor with ListenerManager {
+  private var users: Vector[Identifier] = Vector()
+  
+  def createUpdate = users
+  
+  override def lowPriority = {
+    case i: Identifier => users :+= i; updateListeners()
+  }
+}
+
 object ChatServer extends LiftActor with ListenerManager {
   private var msgs = Vector("Welcome") // private state
 
-  /**
-   * When we update the listeners, what message do we send?
-   * We send the msgs, which is an immutable data structure,
-   * so it can be shared with lots of threads without any
-   * danger or locking.
-   */
   def createUpdate = msgs
 
-  /**
-   * process messages that are sent to the Actor.  In
-   * this case, we're looking for Strings that are sent
-   * to the ChatServer.  We append them to our Vector of
-   * messages, and then update all the listeners.
-   */
   override def lowPriority = {
     case s: String => msgs :+= s; updateListeners()
   }
