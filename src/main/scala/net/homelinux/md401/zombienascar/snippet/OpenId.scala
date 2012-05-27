@@ -9,7 +9,7 @@ import org.openid4java.consumer.VerificationResult
 import net.liftweb.common.Full
 import net.liftweb.http.S
 import scala.xml.Text
-import net.homelinux.md401.zombienascar.comet.UserList
+import net.homelinux.md401.zombienascar.comet.Users
 
 trait SimpleOpenIdVendor extends OpenIDVendor {   
   type UserType = Identifier   
@@ -18,7 +18,7 @@ trait SimpleOpenIdVendor extends OpenIDVendor {
   def currentUser = OpenIDUser.is
   def postLogin(id: Box[Identifier],res: VerificationResult): Unit = {
     id match {
-      case Full(id) => UserList ! id
+      case Full(id) => Users ! id
       case _ => S.error("Failed to authenticate")
     }
     OpenIDUser(id)
