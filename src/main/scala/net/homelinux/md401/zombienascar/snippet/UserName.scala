@@ -5,6 +5,6 @@ import scala.xml.Text
 
 class username {
 	def render(): NodeSeq = {
-	  Text(OpenIDUser.get.get.getIdentifier())
+	  Text((OpenIDUser.get map (_.getIdentifier())).getOrElse("Unknown"))
 	}
 }
