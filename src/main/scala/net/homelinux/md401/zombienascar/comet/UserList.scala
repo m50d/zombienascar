@@ -5,6 +5,9 @@ import org.openid4java.discovery.Identifier
 import net.liftweb.http.CometActor
 import net.liftweb.http.CometListener
 import scala.xml.Text
+import org.openid4java.discovery.Discovery
+import org.openid4java.discovery.DiscoveryInformation
+import org.openid4java.consumer.ConsumerManager
 
 object Users extends LiftActor with ListenerManager {
   private var users: Vector[Identifier] = Vector()
@@ -26,5 +29,9 @@ class UserList extends CometActor with CometListener {
     }
   }
 
-  override def render = (users map (u => <label><input type="checkbox"></input>{u.getIdentifier}</label>))
+  override def render = (users map (u => {
+//    val list = new Discovery().discover(u)
+//    val manager = new ConsumerManager()
+//    val information = manager.associate(list);
+    <label><input type="checkbox"></input>{u.getIdentifier}</label>}))
 }
