@@ -4,6 +4,7 @@ import net.liftweb.http.ListenerManager
 import org.openid4java.discovery.Identifier
 import net.liftweb.http.CometActor
 import net.liftweb.http.CometListener
+import scala.xml.Text
 
 object Users extends LiftActor with ListenerManager {
   private var users: Vector[Identifier] = Vector()
@@ -25,5 +26,5 @@ class UserList extends CometActor with CometListener {
     }
   }
 
-  override def render = "input *" #> (users map (_.getIdentifier))
+  override def render = (users map (u => <label><input type="checkbox"></input>{u.getIdentifier}</label>))
 }
