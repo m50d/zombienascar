@@ -10,10 +10,17 @@ import net.liftweb.common.Full
 import net.liftweb.http.S
 import scala.xml.Text
 import net.homelinux.md401.zombienascar.comet.Users
+import org.openid4java.discovery.DiscoveryInformation
+import org.openid4java.message.AuthRequest
+import net.liftweb.common.Empty
 
-trait SimpleOpenIdVendor extends OpenIDVendor {   
+
+trait SimpleOpenIdVendor extends OpenIDVendor { 
+  class RealNameFetchingConsumer extends OpenIDConsumer[UserType] {
+  beforeAuth = Empty
+}
   type UserType = Identifier   
-  type ConsumerType = OpenIDConsumer[UserType]
+  type ConsumerType = RealNameFetchingConsumer
    
   def currentUser = OpenIDUser.is
   def postLogin(id: Box[Identifier],res: VerificationResult): Unit = {
@@ -27,7 +34,7 @@ trait SimpleOpenIdVendor extends OpenIDVendor {
     OpenIDUser.remove   
   }
   def displayUser(in: UserType): NodeSeq = Text("Welcome "+in)
-  def createAConsumer = new AnyRef with OpenIDConsumer[UserType]
+  def createAConsumer = new RealNameFetchingConsumer
 }
 object SimpleOpenIdVendor extends SimpleOpenIdVendor
 
