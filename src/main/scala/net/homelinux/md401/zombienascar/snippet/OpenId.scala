@@ -17,7 +17,9 @@ import net.liftweb.common.Empty
 
 trait SimpleOpenIdVendor extends OpenIDVendor { 
   class RealNameFetchingConsumer extends OpenIDConsumer[UserType] {
-  beforeAuth = Empty
+  beforeAuth = Full({case (di: DiscoveryInformation, ar: AuthRequest) => {
+    
+  }})
 }
   type UserType = Identifier   
   type ConsumerType = RealNameFetchingConsumer
