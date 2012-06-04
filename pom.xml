@@ -81,10 +81,12 @@
                 <artifactId>maven-scala-plugin</artifactId>
                 <version>2.13.1</version>
                 <configuration>
+                    <args>
+                        <arg>-unchecked</arg>
+                    </args>
                     <charset>${project.build.sourceEncoding}</charset>
                     <jvmArgs>
                         <jvmArg>-Xmx1024m</jvmArg>
-                        <jvmArg>-DpackageLinkDefs=file://${project.build.directory}/packageLinkDefs.properties</jvmArg>
                     </jvmArgs>
                 </configuration>
                 <executions>
@@ -198,8 +200,8 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>2.5.1</version>
                     <configuration>
-                        <source>1.4</source>
-                        <target>1.4</target>
+                        <source>1.7</source>
+                        <target>1.7</target>
                     </configuration>
                 </plugin>
             </plugins>
