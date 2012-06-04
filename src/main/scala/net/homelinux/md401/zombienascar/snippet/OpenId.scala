@@ -32,9 +32,8 @@ trait SimpleOpenIdVendor extends OpenIDVendor {
   def currentUser = OpenIDUser.is
   def postLogin(id: Box[Identifier],res: VerificationResult): Unit = {
     id match {
-      case Full(id) => Users ! id
-      case _ => S.error("Failed to authenticate")
-    }
+      case Full(id) => {
+        
     if(res.getAuthResponse().hasExtension(AxMessage.OPENID_NS_AX)){
       val ext = res.getAuthResponse().getExtension(AxMessage.OPENID_NS_AX);
 
@@ -44,7 +43,10 @@ trait SimpleOpenIdVendor extends OpenIDVendor {
         
         val firstName = fetchResp.getAttributeValue("FirstName")
         Username(firstName)
+        Users ! (id, firstName)
     }
+    }}
+      case _ => S.error("Failed to authenticate")
     }
     OpenIDUser(id)
   }

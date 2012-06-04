@@ -11,21 +11,20 @@ import org.openid4java.consumer.ConsumerManager
 import net.liftweb.http.SHtml
 
 object Users extends LiftActor with ListenerManager {
-  private var users: Vector[Identifier] = Vector()
-
+  private var users: Map[String, Identifier] = Map()
   def createUpdate = users
 
   override def lowPriority = {
-    case i: Identifier => users :+= i; updateListeners()
+    case (i: Identifier, name: String) => users = users.updated(name, i); updateListeners()
   }
 }
 
 class UserList extends CometActor with CometListener {
-  private var users: Vector[Identifier] = Vector()
+  private var users: List[Identifier] = List()
   def registerWith = Users
   override def lowPriority = {
-    case v: Vector[Identifier] => {
-      users = v;
+    case m: Map[String, Identifier] => {
+      users = m.values.toList;
       reRender();
     }
   }
