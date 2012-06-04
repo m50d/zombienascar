@@ -13,12 +13,17 @@ import net.homelinux.md401.zombienascar.comet.Users
 import org.openid4java.discovery.DiscoveryInformation
 import org.openid4java.message.AuthRequest
 import net.liftweb.common.Empty
+import org.openid4java.message.ax.FetchRequest
+import org.openid4java.message.ax.AxMessage
+import org.openid4java.message.ax.FetchResponse
 
 
 trait SimpleOpenIdVendor extends OpenIDVendor { 
   class RealNameFetchingConsumer extends OpenIDConsumer[UserType] {
   beforeAuth = Full({case (di: DiscoveryInformation, ar: AuthRequest) => {
-    
+    val fr = FetchRequest.createFetchRequest()
+    fr.addAttribute("FirstName", "http://schema.openid.net/namePerson/first", true)
+    ar.addExtension(fr)
   }})
 }
   type UserType = Identifier   
@@ -29,6 +34,17 @@ trait SimpleOpenIdVendor extends OpenIDVendor {
     id match {
       case Full(id) => Users ! id
       case _ => S.error("Failed to authenticate")
+    }
+    if(res.getAuthResponse().hasExtension(AxMessage.OPENID_NS_AX)){
+      val ext = res.getAuthResponse().getExtension(AxMessage.OPENID_NS_AX);
+
+    if (ext.isInstanceOf[FetchResponse])
+    {
+        val fetchResp =  ext.asInstanceOf[FetchResponse]
+        
+        val firstName = fetchResp.getAttributeValue("FirstName")
+        Username(firstName)
+    }
     }
     OpenIDUser(id)
   }

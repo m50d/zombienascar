@@ -2,9 +2,13 @@ package net.homelinux.md401.zombienascar.snippet
 import scala.xml.NodeSeq
 import net.liftweb.openid.OpenIDUser
 import scala.xml.Text
+import net.liftweb.http.SessionVar
+import net.liftweb.common.Box
+import net.liftweb.common.Empty
 
-class username {
-	def render(): NodeSeq = {
-	  Text((OpenIDUser.get map (_.getIdentifier())).getOrElse("Unknown"))
-	}
+object Username extends SessionVar[String]("Unknown")
+
+class usernamedisplay {
+	def render(): NodeSeq = Text(Username.get)
+	
 }
