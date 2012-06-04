@@ -17,43 +17,41 @@ import org.openid4java.message.ax.FetchRequest
 import org.openid4java.message.ax.AxMessage
 import org.openid4java.message.ax.FetchResponse
 
-
-trait SimpleOpenIdVendor extends OpenIDVendor { 
+trait SimpleOpenIdVendor extends OpenIDVendor {
   class RealNameFetchingConsumer extends OpenIDConsumer[UserType] {
-  beforeAuth = Full({case (di: DiscoveryInformation, ar: AuthRequest) => {
-    val fr = FetchRequest.createFetchRequest()
-    fr.addAttribute("FirstName", "http://schema.openid.net/namePerson/first", true)
-    ar.addExtension(fr)
-  }})
-}
-  type UserType = Identifier   
+    beforeAuth = Full({
+      case (di: DiscoveryInformation, ar: AuthRequest) => {
+        val fr = FetchRequest.createFetchRequest()
+        fr.addAttribute("FirstName", "http://schema.openid.net/namePerson/first", true)
+        ar.addExtension(fr)
+      }
+    })
+  }
+  type UserType = Identifier
   type ConsumerType = RealNameFetchingConsumer
-   
+
   def currentUser = OpenIDUser.is
-  def postLogin(id: Box[Identifier],res: VerificationResult): Unit = {
+  def postLogin(id: Box[Identifier], res: VerificationResult): Unit = {
     id match {
       case Full(id) => {
-        
-    if(res.getAuthResponse().hasExtension(AxMessage.OPENID_NS_AX)){
-      val ext = res.getAuthResponse().getExtension(AxMessage.OPENID_NS_AX);
-
-    if (ext.isInstanceOf[FetchResponse])
-    {
-        val fetchResp =  ext.asInstanceOf[FetchResponse]
-        
-        val firstName = fetchResp.getAttributeValue("FirstName")
-        Username(firstName)
-        Users ! (id, firstName)
-    }
-    }}
+        if (res.getAuthResponse().hasExtension(AxMessage.OPENID_NS_AX)) {
+          val ext = res.getAuthResponse().getExtension(AxMessage.OPENID_NS_AX)
+          ext match {
+            case fetchResp: FetchResponse =>
+              val firstName = fetchResp.getAttributeValue("FirstName")
+              Username(firstName)
+              Users ! (id, firstName)
+          }
+        }
+      }
       case _ => S.error("Failed to authenticate")
     }
     OpenIDUser(id)
   }
   def logUserOut() {
-    OpenIDUser.remove   
+    OpenIDUser.remove
   }
-  def displayUser(in: UserType): NodeSeq = Text("Welcome "+in)
+  def displayUser(in: UserType): NodeSeq = Text("Welcome " + in)
   def createAConsumer = new RealNameFetchingConsumer
 }
 object SimpleOpenIdVendor extends SimpleOpenIdVendor
