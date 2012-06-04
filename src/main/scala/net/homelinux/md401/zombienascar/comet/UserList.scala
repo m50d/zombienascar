@@ -20,18 +20,18 @@ object Users extends LiftActor with ListenerManager {
 }
 
 class UserList extends CometActor with CometListener {
-  private var users: List[Identifier] = List()
+  private var users: Map[String, Identifier] = Map()
   def registerWith = Users
   override def lowPriority = {
     case m: Map[String, Identifier] => {
-      users = m.values.toList;
+      users = m;
       reRender();
     }
   }
 
-  override def render = (users map (u => {
+  override def render = (users.keys.toList map (u => {
 //    val list = new Discovery().discover(u)
 //    val manager = new ConsumerManager()
 //    val information = manager.associate(list);
-    <label>{SHtml.checkbox(false, x=> x)} {u.getIdentifier}</label>}))
+    <label>{SHtml.checkbox(false, x=> x)} {u}</label>}))
 }
