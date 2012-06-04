@@ -40,8 +40,8 @@ class UserList extends CometActor with CometListener {
     })
     val submit = SHtml.ajaxSubmit("Play", () => {
       Players(users.filterKeys(selectedUsers contains _))
-      JsCmds.RedirectTo("/game")
+      JsCmds.RedirectTo("game")
     })
-    userCheckboxes ++ submit
+    SHtml.ajaxForm(userCheckboxes ++ submit)
   }
 }

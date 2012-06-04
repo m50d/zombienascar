@@ -8,10 +8,8 @@
     </head>
     <body>
         <div id="main">
-            <form>
-                <lift:comet type="UserList">
-                </lift:comet>
-            </form>
+            <lift:comet type="UserList">
+            </lift:comet>
             <lift:comet type="Lobby" name="main">
                 <ul>
                     <li>A message</li>
@@ -23,7 +21,10 @@
                     <input id="chat_submit" type="submit" value="Say Something" />
                 </lift:chatin>
             </div>
-            <span>Welcome <lift:usernamedisplay></lift:usernamedisplay></span>
+            <span>
+                Welcome
+                <lift:usernamedisplay></lift:usernamedisplay>
+            </span>
         </div>
     </body>
 </html>
