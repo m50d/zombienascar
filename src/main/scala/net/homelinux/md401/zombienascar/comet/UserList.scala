@@ -9,6 +9,10 @@ import org.openid4java.discovery.Discovery
 import org.openid4java.discovery.DiscoveryInformation
 import org.openid4java.consumer.ConsumerManager
 import net.liftweb.http.SHtml
+import net.homelinux.md401.zombienascar.snippet.Players
+import net.liftweb.http.S
+import net.liftweb.http.js.JsCmd
+import net.liftweb.http.js.JsCmds
 
 object Users extends LiftActor with ListenerManager {
   private var users: Map[String, Identifier] = Map()
@@ -29,9 +33,15 @@ class UserList extends CometActor with CometListener {
     }
   }
 
-  override def render = (users.keys.toList map (u => {
-//    val list = new Discovery().discover(u)
-//    val manager = new ConsumerManager()
-//    val information = manager.associate(list);
-    <label>{SHtml.checkbox(false, x=> x)} {u}</label>}))
+  override def render = {
+    var selectedUsers: List[String] = Nil
+    val userCheckboxes = users.keys.toList map (u => {
+      <label>{ SHtml.checkbox(false, if (_) selectedUsers :+= u else selectedUsers = selectedUsers.remove(x => x.equals(u))) } { u }</label>
+    })
+    val submit = SHtml.ajaxSubmit("Play", () => {
+      Players(users.filterKeys(selectedUsers contains _))
+      JsCmds.RedirectTo("/game")
+    })
+    userCheckboxes ++ submit
+  }
 }

@@ -40,13 +40,15 @@ trait SimpleOpenIdVendor extends OpenIDVendor {
             case fetchResp: FetchResponse =>
               val firstName = fetchResp.getAttributeValue("FirstName")
               Username(firstName)
+              OpenIDUser(Full(id))
               Users ! (id, firstName)
+              S.redirectTo("/")
+              return
           }
         }
       }
-      case _ => S.error("Failed to authenticate")
     }
-    OpenIDUser(id)
+    S.error("Failed to authenticate")
   }
   def logUserOut() {
     OpenIDUser.remove
