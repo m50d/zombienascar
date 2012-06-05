@@ -30,7 +30,7 @@
             <img src="5.png" id="card5" class="playslot"></img>
             <script>
             $(function(){$(".playslot").droppable({
-                drop: function(event,ui){alert("dropped");}            
+                drop: function(event,ui){alert(ui.draggable.attr('id'));}            
             });});
             </script>
         </div>
