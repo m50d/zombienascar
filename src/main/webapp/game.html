@@ -28,6 +28,11 @@
             <img src="3.png" id="card3" class="playslot"></img>
             <img src="4.png" id="card4" class="playslot"></img>
             <img src="5.png" id="card5" class="playslot"></img>
+            <script>
+            $(function(){$(".playslot").droppable({
+                drop: function(event,ui){alert("dropped");}            
+            });});
+            </script>
         </div>
     </body>
 </html>
