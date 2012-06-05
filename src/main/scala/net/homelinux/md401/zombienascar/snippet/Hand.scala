@@ -10,6 +10,6 @@ class hand {
     val cards = Deck.hand(9)
     cards flatMap (c => {
       val id = UUID.randomUUID().toString()
-      <img src={c.filename} id={id}></img><script>$("#{id}").draggable();</script>})
+      <img src={c.filename} id={id}></img><script>$(function() {{$("#{id}").draggable();}});</script>})
   }
 }
