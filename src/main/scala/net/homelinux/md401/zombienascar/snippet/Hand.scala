@@ -8,8 +8,8 @@ import net.liftweb.http.SHtml
 class hand {
   def render(): NodeSeq = {
     val cards = Deck.hand(9)
-    cards map (c => {
+    cards flatMap (c => {
       val id = UUID.randomUUID().toString()
-      <img src={c.filename} id={id}><script>$("#{id}").draggable();</script></img>})
+      <img src={c.filename} id={id}></img><script>$("#{id}").draggable();</script>})
   }
 }
