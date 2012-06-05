@@ -1,10 +1,15 @@
 package net.homelinux.md401.zombienascar.snippet
 import scala.xml.NodeSeq
 import net.homelinux.md401.zombienascar.backend.Deck
+import net.liftweb.http.js.JE.JsRaw
+import java.util.UUID
+import net.liftweb.http.SHtml
 
 class hand {
   def render(): NodeSeq = {
     val cards = Deck.hand(9)
-    cards map (c => <img src={c.filename}></img>)
+    cards map (c => {
+      val id = UUID.randomUUID().toString()
+      <img src={c.filename} id={id}><script>$("#{id}").draggable();</script></img>})
   }
 }
