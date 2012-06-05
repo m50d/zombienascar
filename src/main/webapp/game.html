@@ -4,8 +4,15 @@
     <head>
         <title>Game</title>
         <script id="jquery" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js" type="text/javascript"></script>
-        <script id="jquery" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.js" type="text/javascript"></script>
+        <script id="jquery-ui" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.js" type="text/javascript"></script>
         <script id="json" src="/classpath/json.js" type="text/javascript"></script>
+        <style>
+            .playslot {
+                opacity: 0.5;
+                position: relative;
+                z-index: 3;
+            }
+        </style>
     </head>
     <body>
         <div id="main">
@@ -15,6 +22,12 @@
             </ul>
             <h2>Hand</h2>
             <lift:hand></lift:hand>
+            <br/>
+            <img src="1.png" id="card1" class="playslot"></img>
+            <img src="2.png" id="card2" class="playslot"></img>
+            <img src="3.png" id="card3" class="playslot"></img>
+            <img src="4.png" id="card4" class="playslot"></img>
+            <img src="5.png" id="card5" class="playslot"></img>
         </div>
     </body>
 </html>
