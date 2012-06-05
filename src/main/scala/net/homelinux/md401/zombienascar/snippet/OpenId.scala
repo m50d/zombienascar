@@ -16,6 +16,7 @@ import net.liftweb.common.Empty
 import org.openid4java.message.ax.FetchRequest
 import org.openid4java.message.ax.AxMessage
 import org.openid4java.message.ax.FetchResponse
+import net.liftweb.common.Failure
 
 trait SimpleOpenIdVendor extends OpenIDVendor {
   class RealNameFetchingConsumer extends OpenIDConsumer[UserType] {
@@ -47,6 +48,7 @@ trait SimpleOpenIdVendor extends OpenIDVendor {
           }
         }
       }
+      case _ => {}
     }
     S.error("Failed to authenticate")
   }
