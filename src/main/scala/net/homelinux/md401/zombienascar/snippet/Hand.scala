@@ -7,6 +7,10 @@ import net.liftweb.http.SHtml
 import net.liftweb.http.JsonHandler
 import net.liftweb.http.js.JsCmd
 import net.liftweb.util.JsonCmd
+import net.liftweb.http.js.JE
+import net.liftweb.http.js.JsCmds
+import scala.xml.Text
+import net.liftweb.http.js.JsonCall
 
 class hand {
   def render(): NodeSeq = {
@@ -19,7 +23,8 @@ class hand {
 
 object json extends JsonHandler {
   def apply(in: Any): JsCmd = { in match { 
-            case JsonCmd("processForm", _, p: Map[String, _], _) => {
+            case JsonCmd("play", _, p: Map[String, _], _) => {
+              println(p)
                 // process the form or whatever 
 //                println("Cars = " + urlDecode(p("cars"))) 
 //                println("Name = " + urlDecode(p("name"))) 
@@ -27,4 +32,10 @@ object json extends JsonHandler {
             }
             case _ => JsCmd.unitToJsCmd()
         }}
+}
+
+class playbutton {
+  def render(): NodeSeq = {
+    JsCmds.Script(json.jsCmd)  ++ <input type="submit" onclick={Text(json.call(JE.JsRaw("window.selected")).toJsCmd)}></input>
+  }
 }
