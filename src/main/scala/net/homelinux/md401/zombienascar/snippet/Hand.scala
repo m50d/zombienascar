@@ -36,6 +36,6 @@ object json extends JsonHandler {
 
 class playbutton {
   def render(): NodeSeq = {
-    JsCmds.Script(json.jsCmd)  ++ <input type="submit" onclick={Text(json.call(JE.JsRaw("window.selected")).toJsCmd)}></input>
+    JsCmds.Script(json.jsCmd)  ++ <input type="submit" onclick={Text(json.call("play", JE.JsRaw("window.selected")).toJsCmd)}></input>
   }
 }
