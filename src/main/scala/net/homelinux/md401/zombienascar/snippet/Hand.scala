@@ -23,7 +23,7 @@ class hand {
 
 object json extends JsonHandler {
   def apply(in: Any): JsCmd = { in match { 
-            case JsonCmd("play", _, p: Map[String, _], _) => {
+            case JsonCmd("play", _, p: Map[String, UUID], _) => {
               println(p)
                 // process the form or whatever 
 //                println("Cars = " + urlDecode(p("cars"))) 
