@@ -12,15 +12,6 @@ import net.liftweb.http.js.JsCmds
 import scala.xml.Text
 import net.liftweb.http.js.JsonCall
 
-class hand {
-  def render(): NodeSeq = {
-    val cards = Deck.hand(9)
-    cards flatMap (c => {
-      val id = UUID.randomUUID().toString()
-      <img src={c.filename} id={id}></img><script>$(function() {{$("#{id}").draggable();}});</script>})
-  }
-}
-
 object json extends JsonHandler {
   def apply(in: Any): JsCmd = { in match { 
             case JsonCmd("play", _, p: Map[String, UUID], _) => {

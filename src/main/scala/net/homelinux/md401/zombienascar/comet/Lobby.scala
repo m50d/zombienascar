@@ -19,7 +19,7 @@ object ChatServer extends LiftActor with ListenerManager {
   }
 }
 
-class Lobby  extends CometActor with CometListener {
+class Lobby extends CometActor with CometListener {
   private var msgs: Vector[String] = Vector()
 
   def registerWith = ChatServer
