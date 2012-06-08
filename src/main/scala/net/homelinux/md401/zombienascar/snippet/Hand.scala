@@ -22,7 +22,7 @@ object Json extends JsonHandler {
   def apply(in: Any): JsCmd = {
     in match {
       case JsonCmd("play", _, p: Map[String, UUID], _) => {
-        log.debug(p.toString())
+        log.info(p.toString())
         Game ! RawMoveMessage(p)
       }
       case _ => JsCmd.unitToJsCmd()
