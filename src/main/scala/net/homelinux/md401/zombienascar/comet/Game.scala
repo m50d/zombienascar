@@ -31,4 +31,7 @@ class DisplayCar extends CometActor with CometListener {
   def render: RenderOut = {
     Text("Car at " + c.position + " facing " + c.orientation)
   }
+  override def lowPriority = {
+    case nc: Car => c = nc; reRender()
+  }
 }
