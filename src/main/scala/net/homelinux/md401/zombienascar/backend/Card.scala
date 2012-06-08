@@ -4,24 +4,24 @@ sealed trait Card {
   val filename: String
 }
 
-case class Forward1 extends Card {
+object Forward1 extends Card {
   val filename = "forward1.png"
 }
-case class Forward2 extends Card {
+object Forward2 extends Card {
   val filename = "forward2.png"
 }
-case class Forward3 extends Card {
+object Forward3 extends Card {
   val filename = "forward3.png"
 }
-case class Left extends Card {
+object Left extends Card {
   val filename = "left.png"
 }
-case class Right extends Card {
+object Right extends Card {
   val filename = "right.png"
 }
-case class Uturn extends Card {
+object Uturn extends Card {
   val filename = "uturn.png"
 }
-case class Back extends Card {
+object Back extends Card {
   val filename = "back.png"
 }
