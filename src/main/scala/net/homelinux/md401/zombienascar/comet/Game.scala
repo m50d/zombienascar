@@ -10,6 +10,7 @@ import net.liftweb.http.CometActor
 import net.liftweb.http.CometListener
 import net.liftweb.http.RenderOut
 import scala.xml.Text
+import net.homelinux.md401.zombienascar.backend.Card
 
 //Will soon become an class, but for now it's an object
 object Game extends LiftActor with ListenerManager {
@@ -22,6 +23,11 @@ object Game extends LiftActor with ListenerManager {
 object PlayerCar extends LiftActor with ListenerManager {
   var c: Car = Car(EuclideanSquarePosition(0, 0), North())
   def createUpdate = c
+  override def lowPriority = {
+    case m: MoveMessage => {
+      c = m.cards.foldLeft(c)((d: Car, e: Card) => d.move(e)); updateListeners()
+    }
+  }
 } 
 
 class DisplayCar extends CometActor with CometListener {
