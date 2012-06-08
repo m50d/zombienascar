@@ -9,22 +9,23 @@ import net.homelinux.md401.zombienascar.backend.Card
 
 case class NewHandMessage(cards: List[Card])
 
-case class MoveMessage
+case class MoveMessage(cards: List[Card])
 
 class Hand extends CometActor with CometListener {
-  var cards: List[Card] = List()
-  
+  var cards: Map[UUID, Card] = Map()
+
   def registerWith = Game
-  
+
   override def lowPriority: PartialFunction[Any, Unit] = {
-    case h: NewHandMessage => {cards = h.cards; reRender()}
-  }  
-  
+    case h: NewHandMessage => { cards = Map(h.cards map { c: Card => (UUID.randomUUID(), c) }: _*); reRender() }
+  }
+
   def render(): RenderOut = {
-    val cards = Deck.hand(9)
-    cards flatMap (c => {
-      val id = UUID.randomUUID().toString()
-      <img src={c.filename} id={id}></img><script>$(function() {{$("#{id}").draggable();}});</script>})
+    cards.toList flatMap {
+      case (id, c) => {
+        <img src={ c.filename } id={ id.toString }></img><script>$(function() {{$("#{ id }").draggable();}});</script>
+      }
+    }
   }
 
 }
