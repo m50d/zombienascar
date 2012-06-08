@@ -13,19 +13,25 @@ import scala.xml.Text
 import net.liftweb.http.js.JsonCall
 import net.homelinux.md401.zombienascar.comet.MoveMessage
 import net.homelinux.md401.zombienascar.comet.Game
+import net.homelinux.md401.zombienascar.comet.RawMoveMessage
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
-object json extends JsonHandler {
-  def apply(in: Any): JsCmd = { in match { 
-            case JsonCmd("play", _, p: Map[String, UUID], _) => {
-              println(p)
-              Game ! MoveMessage()
-            }
-            case _ => JsCmd.unitToJsCmd()
-        }}
+object Json extends JsonHandler {
+  val log = LoggerFactory.getLogger(getClass())
+  def apply(in: Any): JsCmd = {
+    in match {
+      case JsonCmd("play", _, p: Map[String, UUID], _) => {
+        log.debug(p.toString())
+        Game ! RawMoveMessage(p)
+      }
+      case _ => JsCmd.unitToJsCmd()
+    }
+  }
 }
 
 class playbutton {
   def render(): NodeSeq = {
-    JsCmds.Script(json.jsCmd)  ++ <input type="submit" onclick={Text(json.call("play", JE.JsRaw("window.selected")).toJsCmd)}></input>
+    JsCmds.Script(Json.jsCmd) ++ <input type="submit" onclick={ Text(Json.call("play", JE.JsRaw("window.selected")).toJsCmd) }></input>
   }
 }
