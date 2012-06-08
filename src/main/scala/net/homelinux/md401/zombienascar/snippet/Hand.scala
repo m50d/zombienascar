@@ -21,7 +21,7 @@ object Json extends JsonHandler {
   val log = LoggerFactory.getLogger(getClass())
   def apply(in: Any): JsCmd = {
     in match {
-      case JsonCmd("play", _, p: Map[String, UUID], _) => {
+      case JsonCmd("play", _, p: Map[String, String], _) => {
         log.info(p.toString())
         Game ! RawMoveMessage(p)
       }

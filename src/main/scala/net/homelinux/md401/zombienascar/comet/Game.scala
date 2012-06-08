@@ -17,6 +17,7 @@ object Game extends LiftActor with ListenerManager {
 	def createUpdate = NewHandMessage(Deck.hand(9))
 	override def lowPriority = {
 	  case m: MoveMessage => {PlayerCar ! m; updateListeners()}
+	  case m: RawMoveMessage => updateListeners(m)
 	}
 }
 
