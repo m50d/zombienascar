@@ -9,8 +9,12 @@ import net.homelinux.md401.zombienascar.backend.Card
 
 case class NewHandMessage(cards: List[Card])
 
-class Hand extends CometActor {
+case class MoveMessage
+
+class Hand extends CometActor with CometListener {
   var cards: List[Card] = List()
+  
+  def registerWith = Game
   
   override def lowPriority: PartialFunction[Any, Unit] = {
     case h: NewHandMessage => {cards = h.cards; reRender()}

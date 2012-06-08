@@ -11,15 +11,14 @@ import net.liftweb.http.js.JE
 import net.liftweb.http.js.JsCmds
 import scala.xml.Text
 import net.liftweb.http.js.JsonCall
+import net.homelinux.md401.zombienascar.comet.MoveMessage
+import net.homelinux.md401.zombienascar.comet.Game
 
 object json extends JsonHandler {
   def apply(in: Any): JsCmd = { in match { 
             case JsonCmd("play", _, p: Map[String, UUID], _) => {
               println(p)
-                // process the form or whatever 
-//                println("Cars = " + urlDecode(p("cars"))) 
-//                println("Name = " + urlDecode(p("name"))) 
-//                <b>{p}</b> 
+              Game ! MoveMessage()
             }
             case _ => JsCmd.unitToJsCmd()
         }}
