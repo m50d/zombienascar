@@ -7,3 +7,27 @@ sealed trait Square {
 object BlankSquare extends Square {
   val filename = "blank.png"
 }
+
+object NorthConveyor extends Square {
+  val filename = "northconveyor.png"
+}
+
+object SouthConveyor extends Square {
+  val filename = "northconveyor.png"
+}
+
+object EastConveyor extends Square {
+  val filename = "northconveyor.png"
+}
+
+object WestConveyor extends Square {
+  val filename = "northconveyor.png"
+}
+
+object ClockwiseGear extends Square {
+  val filename = "northconveyor.png"
+}
+
+object AnticlockwiseGear extends Square {
+  val filename = "northconveyor.png"
+}
