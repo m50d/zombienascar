@@ -22,7 +22,7 @@ object Game extends LiftActor with ListenerManager {
 }
 
 object PlayerCar extends LiftActor with ListenerManager {
-  var c: Car = Car(EuclideanSquarePosition(0, 0), North())
+  var c: Car = Car(EuclideanSquarePosition(0, 0), North)
   def createUpdate = c
   override def lowPriority = {
     case m: MoveMessage => {
@@ -32,7 +32,7 @@ object PlayerCar extends LiftActor with ListenerManager {
 } 
 
 class DisplayCar extends CometActor with CometListener {
-  var c: Car = Car(EuclideanSquarePosition(0, 0), North())
+  var c: Car = Car(EuclideanSquarePosition(0, 0), North)
   
   def registerWith = PlayerCar
   def render: RenderOut = {
