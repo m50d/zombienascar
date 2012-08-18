@@ -19,6 +19,9 @@ import net.homelinux.md401.zombienascar.backend.DisplayTile
 //Will soon become an class, but for now it's an object
 object Game extends LiftActor with ListenerManager {
 	def createUpdate = NewHandMessage(Deck.hand(9))
+  val allIndexes = List.tabulate(12, 12)(EuclideanSquarePosition(_, _))
+  val allPositions = allIndexes.flatten
+  val board = allPositions map {p: EuclideanSquarePosition => (p, BlankSquare)} toMap
 	override def lowPriority = {
 	  case m: MoveMessage => {PlayerCar ! m; updateListeners()}
 	  case m: RawMoveMessage => updateListeners(m)
@@ -30,18 +33,19 @@ object PlayerCar extends LiftActor with ListenerManager {
   def createUpdate = c
   override def lowPriority = {
     case m: MoveMessage => {
-      c = m.cards.foldLeft(c)((d: Car, e: Card) => d.move(e)); updateListeners()
+      c = m.cards.foldLeft(c)({(d: Car, e: Card) =>
+        val newPos = d.move(e)
+        Game.board(newPos.position).actOn(newPos)
+        })
+        updateListeners()
     }
   }
 } 
 
 class DisplayCar extends CometActor with CometListener {
-  val allIndexes = List.tabulate(12, 12)(EuclideanSquarePosition(_, _))
-  val allPositions = allIndexes.flatten
-  val board = allPositions map {p: EuclideanSquarePosition => (p, BlankSquare)} toMap
   var c: Car = Car(EuclideanSquarePosition(0, 0), North)
   
-  def displayBoard = board map {
+  def displayBoard = Game.board map {
     case (p, s) => (p, DisplayTile(s, if(c.position equals p) Some(c) else None))
   }
   
@@ -49,7 +53,7 @@ class DisplayCar extends CometActor with CometListener {
   def render: RenderOut = {
     val db = displayBoard
     <table>{
-      allIndexes map {
+      Game.allIndexes map {
         row =>
           <tr>
             {
