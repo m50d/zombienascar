@@ -5,13 +5,16 @@ sealed trait Square {
   def actOn(c: Car): Car
 }
 
+/**
+ * Note that North is defined to be the positive x direction, i.e. East
+ */
 object Square {
   def char2Square(c: Char): Square = c match {
     case '.' => BlankSquare
-    case '↑' => NorthConveyor
-    case '↓' => SouthConveyor
-    case '→' => EastConveyor
-    case '←' => WestConveyor
+    case '↑' => WestConveyor
+    case '↓' => EastConveyor
+    case '→' => NorthConveyor
+    case '←' => SouthConveyor
     case '↷' => ClockwiseGear
     case '↶' => AnticlockwiseGear
     case _ => throw new RuntimeException("Unknown tile " + c)
