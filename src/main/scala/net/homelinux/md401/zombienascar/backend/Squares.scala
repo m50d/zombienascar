@@ -16,6 +16,8 @@ object Square {
     case '↶' => AnticlockwiseGear
     case _ => throw new RuntimeException("Unknown tile " + c)
   }
+  def string2Row(s: String): IndexedSeq[Square] = s map char2Square
+  def board(r: String*): List[IndexedSeq[Square]] = List() ++ (r map string2Row)
 }
 
 sealed abstract class Conveyor(o: EuclideanSquareOrientation) extends Square {

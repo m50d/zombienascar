@@ -15,13 +15,28 @@ import net.homelinux.md401.zombienascar.backend.BlankSquare
 import net.homelinux.md401.zombienascar.backend.EuclideanSquarePosition
 import net.homelinux.md401.zombienascar.backend.EuclideanSquarePosition
 import net.homelinux.md401.zombienascar.backend.DisplayTile
+import net.homelinux.md401.zombienascar.backend.Square
 
 //Will soon become an class, but for now it's an object
 object Game extends LiftActor with ListenerManager {
 	def createUpdate = NewHandMessage(Deck.hand(9))
   val allIndexes = List.tabulate(12, 12)(EuclideanSquarePosition(_, _))
   val allPositions = allIndexes.flatten
-  val board = allPositions map {p: EuclideanSquarePosition => (p, BlankSquare)} toMap
+  val squares = Square.board(
+      "............",
+      "............",
+      "............",
+      "............",
+      "............",
+      "............",
+      "............",
+      "............",
+      "............",
+      "............",
+      "............",
+      "............"
+      )
+  val board = allPositions map {p: EuclideanSquarePosition => (p, squares(p.x)(p.y))} toMap
 	override def lowPriority = {
 	  case m: MoveMessage => {PlayerCar ! m; updateListeners()}
 	  case m: RawMoveMessage => updateListeners(m)
