@@ -12,7 +12,7 @@ class Board {
           <tr>
             {
               row map {
-                tile: Square => <td><img src={ tile.filename }/></td>
+                tile: Square => <td><img src={ "tiles/" + tile.filename }/></td>
               }
             }
           </tr>
