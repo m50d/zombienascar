@@ -47,6 +47,18 @@ class DisplayCar extends CometActor with CometListener {
   
   def registerWith = PlayerCar
   def render: RenderOut = {
+    <table>{
+      allIndexes map {
+        row =>
+          <tr>
+            {
+              row map {
+                position => displayBoard(position).render
+              }
+            }
+          </tr>
+      }
+    }</table>
     Text("Car at " + c.position + " facing " + c.orientation)
   }
   override def lowPriority = {
