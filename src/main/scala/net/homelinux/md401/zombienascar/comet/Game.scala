@@ -48,7 +48,6 @@ class DisplayCar extends CometActor with CometListener {
   def registerWith = PlayerCar
   def render: RenderOut = {
     val db = displayBoard
-    System.out.println(db)
     <table>{
       allIndexes map {
         row =>
