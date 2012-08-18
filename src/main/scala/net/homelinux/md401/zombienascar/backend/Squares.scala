@@ -30,19 +30,19 @@ object BlankSquare extends Square {
 }
 
 object NorthConveyor extends Conveyor(North) {
-  val filename = "northconveyor.png"
+  val filename = "conveyor 090.png"
 }
 
 object SouthConveyor extends Conveyor(South) {
-  val filename = "southconveyor.png"
+  val filename = "conveyor 270.png"
 }
 
 object EastConveyor extends Conveyor(East) {
-  val filename = "northconveyor.png"
+  val filename = "conveyor 180.png"
 }
 
 object WestConveyor extends Conveyor(West) {
-  val filename = "northconveyor.png"
+  val filename = "conveyor 000.png"
 }
 
 object ClockwiseGear extends Square {

@@ -23,7 +23,7 @@ object Game extends LiftActor with ListenerManager {
   val allIndexes = List.tabulate(12, 12)(EuclideanSquarePosition(_, _))
   val allPositions = allIndexes.flatten
   val squares = Square.board(
-      "............",
+      ".→..........",
       "............",
       "............",
       "............",
