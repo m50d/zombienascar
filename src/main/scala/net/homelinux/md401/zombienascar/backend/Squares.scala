@@ -5,6 +5,19 @@ sealed trait Square {
   def actOn(c: Car): Car
 }
 
+object Square {
+  def char2Square(c: Char): Square = c match {
+    case '.' => BlankSquare
+    case '↑' => NorthConveyor
+    case '↓' => SouthConveyor
+    case '→' => EastConveyor
+    case '←' => WestConveyor
+    case '↷' => ClockwiseGear
+    case '↶' => AnticlockwiseGear
+    case _ => throw new RuntimeException("Unknown tile " + c)
+  }
+}
+
 sealed abstract class Conveyor(o: EuclideanSquareOrientation) extends Square {
   def actOn(c: Car) = Car(o.forward(c.position), c.orientation)
 }
