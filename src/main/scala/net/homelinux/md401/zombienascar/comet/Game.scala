@@ -55,7 +55,7 @@ class DisplayCar extends CometActor with CometListener {
           <tr>
             {
               row map {
-                position => db(position).render
+                position => <td>{db(position).render}</td>
               }
             }
           </tr>
