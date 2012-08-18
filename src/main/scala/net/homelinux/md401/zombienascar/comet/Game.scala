@@ -58,7 +58,7 @@ class DisplayCar extends CometActor with CometListener {
             }
           </tr>
       }
-    }</table>
+    }</table><br /> ++
     Text("Car at " + c.position + " facing " + c.orientation)
   }
   override def lowPriority = {
